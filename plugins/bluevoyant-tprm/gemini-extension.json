@@ -1,0 +1,9 @@
+{
+  "name": "bluevoyant-tprm",
+  "version": "3.4.0",
+  "mcpServers": {
+    "tprm-prod": {
+      "httpUrl": "https://mcp.bluevoyant.com/mcp"
+    }
+  }
+}

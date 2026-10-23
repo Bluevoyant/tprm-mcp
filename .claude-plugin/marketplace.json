@@ -1,0 +1,13 @@
+{
+  "name": "bluevoyant-tprm",
+  "owner": {
+    "name": "BlueVoyant RASE / Marcin Tustin"
+  },
+  "plugins": [
+    {
+      "name": "bluevoyant-tprm",
+      "source": "./plugins/bluevoyant-tprm",
+      "description": "Connects your AI agent with BlueVoyant Third-Party Risk Management (TPRM) data. Includes a connector and skills designed to help supported AI agents query TPRM data and generate reports using BlueVoyant-recommended formatting and attribution. AI-generated outputs may contain inaccuracies and should be reviewed. Because the AI agent and underlying model are selected and operated by the customer, BlueVoyant does not control the agent’s processing or use of data."
+    }
+  ]
+}
