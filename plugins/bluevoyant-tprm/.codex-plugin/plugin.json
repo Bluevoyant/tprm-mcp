@@ -1,0 +1,26 @@
+{
+  "name": "bluevoyant-tprm",
+  "version": "3.4.0",
+  "description": "Connects your AI agent with BlueVoyant Third-Party Risk Management (TPRM) data. Includes a connector and skills designed to help supported AI agents query TPRM data and generate reports using BlueVoyant-recommended formatting and attribution. AI-generated outputs may contain inaccuracies and should be reviewed. Because the AI agent and underlying model are selected and operated by the customer, BlueVoyant does not control the agent’s processing or use of data.",
+  "author": {
+    "name": "BlueVoyant RASE / Marcin Tustin"
+  },
+  "homepage": "https://gitlab.com/armed-atk/supply-chain-defense/peepr/tprmmcp",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "BlueVoyant TPRM Connector",
+    "shortDescription": "Query BlueVoyant TPRM data and generate reports.",
+    "developerName": "BlueVoyant RASE",
+    "category": "Productivity",
+    "capabilities": [
+      "TPRM data access",
+      "Reporting"
+    ],
+    "defaultPrompt": [
+      "Show me the TPRM data available through this connector."
+    ],
+    "longDescription": "Connects your AI agent with BlueVoyant Third-Party Risk Management (TPRM) data. Includes a connector and skills designed to help supported AI agents query TPRM data and generate reports using BlueVoyant-recommended formatting and attribution. AI-generated outputs may contain inaccuracies and should be reviewed. Because the AI agent and underlying model are selected and operated by the customer, BlueVoyant does not control the agent’s processing or use of data.",
+    "websiteURL": "https://gitlab.com/armed-atk/supply-chain-defense/peepr/tprmmcp"
+  }
+}

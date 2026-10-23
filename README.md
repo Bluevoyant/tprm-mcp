@@ -1,93 +1,112 @@
-# tprm-mcp
+# BlueVoyant Agent plugin marketplace
 
+Currently we host exactly one plugin, providing access to BlueVoyant's Third Party Risk Management service via MCP, and accompanying skills to improve the effectiveness of agents accessing the service.
+
+You will require a log in to the BlueVoyant TPRM service to use this. If your company does not yet work with BlueVoyant, please contact our sales team for more information.
 
 
 ## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+The marketplace lives at [github.com/Bluevoyant/tprm-mcp](https://github.com/Bluevoyant/tprm-mcp). Install `bluevoyant-tprm` with whichever agent you use; on first use the bundled MCP server `tprm-prod` (`https://mcp.bluevoyant.com/mcp`) takes you through OAuth sign-in with your BlueVoyant TPRM credentials.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Client behavior below is per vendor docs as of 2026-10-23
 
-## Add your files
+### Claude Code (terminal, VS Code, JetBrains, desktop Code tab)
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.com/armed-atk/bluevoyant-public/tprm-mcp.git
-git branch -M main
-git push -uf origin main
+```bash
+claude plugin marketplace add Bluevoyant/tprm-mcp
+claude plugin install bluevoyant-tprm@bluevoyant-tprm   # --scope user | project | local
 ```
 
-## Integrate with your tools
+Or inside a session: `/plugin install bluevoyant-tprm@bluevoyant-tprm`, then pick a scope. Claude Code v2.1.292+ can do both in one command: `claude plugin install bluevoyant-tprm --marketplace Bluevoyant/tprm-mcp`. All Claude Code surfaces (terminal, VS Code, JetBrains, the desktop app's Code tab) share the same settings, so one install covers them. Verify with `claude plugin list`; the skills appear as `/bluevoyant-tprm:<skill>`.
 
-* [Set up project integrations](https://gitlab.com/armed-atk/bluevoyant-public/tprm-mcp/-/settings/integrations)
+### Codex (Codex CLI and Codex in the ChatGPT desktop app)
 
-## Collaborate with your team
+```bash
+codex plugin marketplace add Bluevoyant/tprm-mcp
+```
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+Then run `codex`, enter `/plugins`, open **bluevoyant-tprm** in the marketplace tab, install it, and start a new session. The repo-marketplace layout Codex reads (`.agents/plugins/marketplace.json`) is already in place; `--ref` and `--sparse` are supported on the `marketplace add` command if you need to pin a ref.
 
-## Test and Deploy
+### GitHub Copilot CLI
 
-Use the built-in continuous integration in GitLab.
+Copilot CLI reads the same `.claude-plugin/marketplace.json` layout this repo already ships:
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+```bash
+copilot plugin marketplace add Bluevoyant/tprm-mcp
+copilot plugin install bluevoyant-tprm@bluevoyant-tprm
+```
 
-***
+### VS Code (Copilot agent)
 
-# Editing this README
+Register the marketplace in `settings.json`:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```json
+{ "chat.plugins.marketplaces": ["Bluevoyant/tprm-mcp"] }
+```
 
-## Suggestions for a good README
+Then open the Extensions view, search `@agentPlugins`, and install **bluevoyant-tprm** (answer the first-install trust prompt), or run `/plugin install bluevoyant-tprm` in a Copilot chat session. VS Code also picks up plugins installed by GitHub Copilot CLI from `~/.copilot/installed-plugins/`.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### Cursor
 
-## Name
-Choose a self-explaining name for your project.
+The package is spec-conformant (root `plugin.json`), so it loads from Cursor's local plugin directory. From a checkout:
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+```bash
+git clone https://github.com/Bluevoyant/tprm-mcp
+mkdir -p ~/.cursor/plugins/local
+cp -R tprm-mcp/plugins/bluevoyant-tprm ~/.cursor/plugins/local/
+```
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Restart Cursor (or **Developer: Reload Window**), then enable **bluevoyant-tprm** in **Customize**. Cursor does not expand the standard's `${PLUGIN_ROOT}`/`${PLUGIN_DATA}` variables in `mcp.json` — this plugin's remote-HTTP entry needs neither.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+For teams, this repo also imports as a Cursor team marketplace: Dashboard → **Plugins & MCPs** → **Add Marketplace** → **Import from Repo** with `https://github.com/Bluevoyant/tprm-mcp`. Cursor reads the root `.cursor-plugin/marketplace.json` (bare plugin names resolved under `metadata.pluginRoot: plugins`) plus `plugins/bluevoyant-tprm/.cursor-plugin/plugin.json` beside the portable manifests; **Marketplace Settings → Refresh** pulls updates. Listing in Cursor's *public* marketplace is a separate submission process, not a repo change — see the additions list below.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### Kiro (powers)
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Powers panel → **Add Custom Power** → **Import power from GitHub** → `https://github.com/Bluevoyant/tprm-mcp` (power directory: `plugins/bluevoyant-tprm`), or **Import power from a folder** pointing at that directory from a local clone. Kiro manages the bundled MCP server internally; it activates and deactivates with the power. Uninstall via the panel or `/powers uninstall bluevoyant-tprm`.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Gemini CLI
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```bash
+git clone https://github.com/Bluevoyant/tprm-mcp
+gemini extensions install ./tprm-mcp/plugins/bluevoyant-tprm
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Answer the folder-trust prompt (`--consent --skip-settings` for scripted installs), then confirm with `gemini extensions list` — the extension shows as `bluevoyant-tprm (3.4.0)` with the `tprm-prod` MCP server and both skills.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Or install straight from the URL — the repo root carries its own `gemini-extension.json`, named `tprm-mcp` after the repo (Gemini matches the manifest name to the clone's root directory):
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+```bash
+gemini extensions install https://github.com/Bluevoyant/tprm-mcp --consent --skip-settings
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+That mode delivers the connector only — Gemini's manifest has no skills field and the repo root has no `skills/` — so use the local-path install above when you want the full plugin.
 
-## License
-For open source projects, say how it is licensed.
+### OpenHands
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+```bash
+openhands --plugin github:Bluevoyant/tprm-mcp/plugins/bluevoyant-tprm
+```
+
+or list it in `~/.openhands/config.toml` under `[plugins] sources = [...]`, or add the same `github:owner/repo/path` source in the GUI's Plugins tab. OpenHands loads the Agent Plugins 1.0 layout (root `plugin.json` takes precedence over `.claude-plugin/`-style layouts) and supports `streamable-http`, the transport this plugin's `mcp.json` declares.
+
+### OpenClaw
+
+```bash
+git clone https://github.com/Bluevoyant/tprm-mcp
+openclaw plugins install ./tprm-mcp/plugins/bluevoyant-tprm
+```
+
+or from the marketplace: `openclaw plugins install bluevoyant-tprm --marketplace Bluevoyant/tprm-mcp`. Confirm detection with `openclaw plugins inspect <id>` — it should report `Format: bundle`, `Bundle format: agent (Agent Plugins)`.
+
+### omp (oh-my-pi)
+
+omp reads the same `.claude-plugin/marketplace.json` catalog (its preferred `.omp-plugin/` path is unnecessary — the Claude-compatible location is a supported fallback) and loads Agent Plugins 1.0 packages through its portable discovery provider:
+
+```bash
+omp plugin marketplace add Bluevoyant/tprm-mcp
+omp plugin install bluevoyant-tprm@bluevoyant-tprm   # --scope user (default) | project
+```
+
+Or in a session: `/marketplace add Bluevoyant/tprm-mcp`, then `/marketplace install bluevoyant-tprm@bluevoyant-tprm`. Verify with `omp plugin list`; run `/reload-plugins` in a live session to pick up the skills and MCP server.
+

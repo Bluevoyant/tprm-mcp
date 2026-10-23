@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "com.bluevoyant/tprm-aiviz",
+  "title": "BlueVoyant TPRM (Third Party Risk Management)",
+  "description": "Connects your AI agent with BlueVoyant Third-Party Risk Management (TPRM) data. Includes a connector and skills designed to help supported AI agents query TPRM data and generate reports using BlueVoyant-recommended formatting and attribution. AI-generated outputs may contain inaccuracies and should be reviewed. Because the AI agent and underlying model are selected and operated by the customer, BlueVoyant does not control the agent’s processing or use of data.",
+  "version": "3.4.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.bluevoyant.com/mcp"
+    }
+  ]
+}
