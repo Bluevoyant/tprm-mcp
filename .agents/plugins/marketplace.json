@@ -1,0 +1,20 @@
+{
+  "name": "bluevoyant-tprm",
+  "interface": {
+    "displayName": "BlueVoyant TPRM Connector"
+  },
+  "plugins": [
+    {
+      "name": "bluevoyant-tprm",
+      "source": {
+        "source": "local",
+        "path": "./plugins/bluevoyant-tprm"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

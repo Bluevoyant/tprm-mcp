@@ -1,0 +1,19 @@
+{
+  "name": "bluevoyant-tprm",
+  "displayName": "BlueVoyant TPRM",
+  "owner": {
+    "name": "BlueVoyant RASE"
+  },
+  "metadata": {
+    "description": "BlueVoyant Third Party Risk Management plugin marketplace",
+    "version": "3.4.0",
+    "pluginRoot": "plugins"
+  },
+  "plugins": [
+    {
+      "name": "bluevoyant-tprm",
+      "source": "bluevoyant-tprm",
+      "description": "BlueVoyant TPRM connector and skills"
+    }
+  ]
+}

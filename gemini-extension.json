@@ -1,0 +1,10 @@
+{
+  "name": "tprm-mcp",
+  "version": "3.4.0",
+  "description": "BlueVoyant TPRM (Third Party Risk Management) MCP connector. Install plugins/bluevoyant-tprm from a local path for the full plugin with skills.",
+  "mcpServers": {
+    "tprm-prod": {
+      "httpUrl": "https://mcp.bluevoyant.com/mcp"
+    }
+  }
+}
